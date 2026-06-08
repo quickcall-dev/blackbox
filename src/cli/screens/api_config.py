@@ -45,6 +45,26 @@ class ApiConfigScreen(Screen):
 
     BINDINGS = [("q", "quit_app", "Quit")]
 
+    async def on_input_submitted(self, event: Input.Submitted) -> None:
+        """Handle Enter in the URL input field."""
+        await self._connect()
+
+    async def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "quit-btn":
+            self.app.exit()
+            return
+        await self._connect()
+
+    async def _connect(self) -> None:
+        """Validate URL, save, and dismiss."""
+        inp = self.query_one("#url-input", Input)
+        url = inp.value.strip()
+        if not url:
+            self.notify("Please enter a URL", severity="warning")
+            return
+        save_config(api_url=url)
+        self.dismiss(url)
+
     def __init__(self, default_url: str = "http://localhost:8000") -> None:
         super().__init__()
         self._default = default_url
@@ -61,23 +81,6 @@ class ApiConfigScreen(Screen):
             with Vertical(id="buttons"):
                 yield Button("Connect", variant="primary", id="connect-btn")
                 yield Button("Quit", variant="error", id="quit-btn")
-
-    async def on_button_pressed(self, event: Button.Pressed) -> None:
-        if event.button.id == "quit-btn":
-            self.app.exit()
-            return
-
-        inp = self.query_one("#url-input", Input)
-        url = inp.value.strip()
-        if not url:
-            self.notify("Please enter a URL", severity="warning")
-            return
-
-        # Save for next time
-        save_config(api_url=url)
-
-        # Notify the browser screen to retry with the new URL
-        self.dismiss(url)
 
     def action_quit_app(self) -> None:
         self.app.exit()

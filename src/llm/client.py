@@ -25,6 +25,18 @@ class AsyncLLMClient:
         self.semaphore = asyncio.Semaphore(concurrency)
         self.model = model
 
+    async def validate_key(self) -> tuple[bool, str]:
+        """Cheap ping to verify API key is valid. Returns (ok, reason)."""
+        try:
+            resp = await self.client.chat.completions.create(
+                model=self.model,
+                max_tokens=1,
+                messages=[{"role": "user", "content": "hi"}],
+            )
+            return True, ""
+        except Exception as e:
+            return False, str(e)
+
     async def call(self, system: str, user: str, response_format: dict) -> dict:
         async with self.semaphore:
             resp = await self.client.chat.completions.create(

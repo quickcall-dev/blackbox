@@ -20,11 +20,14 @@ class BlackboxClient:
         return f"{self.base_url}{path}"
 
     async def health(self) -> bool:
-        """Check if the API is reachable."""
+        """Check if the API is reachable and healthy."""
         try:
             async with httpx.AsyncClient() as client:
                 resp = await client.get(self._url("/health"), timeout=5)
-                return resp.status_code == 200
+                if resp.status_code != 200:
+                    return False
+                data = resp.json()
+                return data.get("status") == "ok"
         except Exception:
             return False
 

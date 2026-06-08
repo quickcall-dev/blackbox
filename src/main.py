@@ -47,7 +47,25 @@ def create_app(
     app = FastAPI(title="Standalone Trace Analyzer", lifespan=lifespan)
 
     @app.get("/health")
-    async def health() -> dict[str, str]:
+    async def health(request: Request) -> dict[str, Any]:
+        # Validate API key on first health check, then cache result
+        if not getattr(request.app.state, "_api_key_checked", False):
+            request.app.state._api_key_checked = True
+            pipeline = request.app.state.pipeline
+            if pipeline and hasattr(pipeline, "llm") and hasattr(pipeline.llm, "validate_key"):
+                ok, reason = await pipeline.llm.validate_key()
+                request.app.state._api_key_valid = ok
+                request.app.state._api_key_reason = reason
+            else:
+                request.app.state._api_key_valid = True
+
+        if not getattr(request.app.state, "_api_key_valid", True):
+            return {
+                "status": "error",
+                "model": settings.model,
+                "reason": "invalid_api_key",
+                "detail": request.app.state._api_key_reason,
+            }
         return {"status": "ok", "model": settings.model}
 
     @app.post("/analyze", status_code=202, response_model=AnalyzeResponse)
