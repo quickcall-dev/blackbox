@@ -5,9 +5,18 @@ Analysis engine for AI coding session traces. Ingests JSONL logs from Claude Cod
 ## Demo
 
 <p align="center">
-  <img src="docs/demo-splash.png" alt="Splash screen" width="32%" />
-  <img src="docs/demo-browser.png" alt="Session browser" width="32%" />
-  <img src="docs/demo-progress.png" alt="Live progress" width="32%" />
+  <b>Splash screen</b><br/>
+  <img src="docs/demo-splash.png" alt="Splash screen" width="80%" />
+</p>
+
+<p align="center">
+  <b>Session browser</b><br/>
+  <img src="docs/demo-browser.png" alt="Session browser" width="80%" />
+</p>
+
+<p align="center">
+  <b>Live progress</b><br/>
+  <img src="docs/demo-progress.png" alt="Live progress" width="80%" />
 </p>
 
 ## What it does
