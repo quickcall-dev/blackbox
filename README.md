@@ -10,13 +10,13 @@ Analysis engine for AI coding session traces. Ingests JSONL logs from Claude Cod
 </p>
 
 <p align="center">
-  <b>Splash screen</b><br/>
-  <img src="docs/demo-splash.png" alt="Splash screen" width="80%" />
+  <b>Root cause analysis in progress</b><br/>
+  <img src="docs/demo-splash.png" alt="Root cause analysis in progress" width="80%" />
 </p>
 
 <p align="center">
-  <b>Live progress</b><br/>
-  <img src="docs/demo-progress.png" alt="Live progress" width="80%" />
+  <b>Aggregation of all findings</b><br/>
+  <img src="docs/demo-progress.png" alt="Aggregation of all findings" width="80%" />
 </p>
 
 ## What it does
