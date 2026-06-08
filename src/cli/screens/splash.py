@@ -24,7 +24,7 @@ class SplashScreen(Screen):
     #splash-line {
         width: auto;
         text-align: center;
-        color: cyan;
+        color: $foreground;
         text-style: bold;
     }
     #splash-sub {
