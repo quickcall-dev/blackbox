@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="docs/cover.png" alt="Blackbox" width="100%" />
+</p>
+
 # Blackbox
 
 Analysis engine for AI coding session traces. Ingests JSONL logs from Claude Code, Codex CLI, or pi.dev, runs a 9-stage LLM pipeline, and surfaces root causes, recurring failures, and anti-patterns.
