@@ -8,6 +8,7 @@ from pathlib import Path
 
 import httpx
 from textual.app import App
+from textual.screen import Screen
 
 from src.cli.config import get_api_url
 from src.cli.discovery import discover_all
@@ -15,11 +16,28 @@ from src.config import settings
 from src.cli.screens.browser import BrowserScreen
 from src.cli.screens.splash import SplashScreen
 
+# Remove emoji from command palette search icon
+try:
+    from textual.command import SearchIcon
+    SearchIcon.icon = ""
+except Exception:
+    pass
+
 
 class BlackboxApp(App):
     """Main Blackbox TUI application."""
 
     TITLE = "QuickCall - Blackbox"
+    theme = "ansi-dark"
+
+    def get_system_commands(self, screen: Screen) -> "Iterable[SystemCommand]":
+        """Override to remove Theme, Screenshot, Maximize commands."""
+        from textual.app import SystemCommand
+        if screen.query("HelpPanel"):
+            yield SystemCommand("Keys", "Hide help panel", self.action_hide_help_panel)
+        else:
+            yield SystemCommand("Keys", "Show help panel", self.action_show_help_panel)
+        yield SystemCommand("Quit", "Quit the application", self.action_quit)
 
     def on_mount(self) -> None:
         splash = SplashScreen()
