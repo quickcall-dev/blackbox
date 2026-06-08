@@ -28,18 +28,23 @@ class BlackboxApp(App):
     """Main Blackbox TUI application."""
 
     TITLE = "QuickCall - Blackbox"
-    theme = "ansi-dark"
 
     def get_system_commands(self, screen: Screen) -> "Iterable[SystemCommand]":
-        """Override to remove Theme, Screenshot, Maximize commands."""
+        """Override to remove Screenshot, Maximize; keep Theme, Keys, Quit."""
         from textual.app import SystemCommand
+        yield SystemCommand("Theme", "Toggle between dark and light", self.action_toggle_theme)
         if screen.query("HelpPanel"):
             yield SystemCommand("Keys", "Hide help panel", self.action_hide_help_panel)
         else:
             yield SystemCommand("Keys", "Show help panel", self.action_show_help_panel)
         yield SystemCommand("Quit", "Quit the application", self.action_quit)
 
+    def action_toggle_theme(self) -> None:
+        """Cycle between ansi-dark and ansi-light."""
+        self.theme = "ansi-light" if self.theme == "ansi-dark" else "ansi-dark"
+
     def on_mount(self) -> None:
+        self.theme = "ansi-dark"
         splash = SplashScreen()
         self.push_screen(splash)
         self.run_worker(self._discover_and_open(), exclusive=True)
