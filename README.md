@@ -2,6 +2,14 @@
 
 Analysis engine for AI coding session traces. Ingests JSONL logs from Claude Code, Codex CLI, or pi.dev, runs a 9-stage LLM pipeline, and surfaces root causes, recurring failures, and anti-patterns.
 
+## Demo
+
+<p align="center">
+  <img src="docs/demo-splash.png" alt="Splash screen" width="32%" />
+  <img src="docs/demo-browser.png" alt="Session browser" width="32%" />
+  <img src="docs/demo-progress.png" alt="Live progress" width="32%" />
+</p>
+
 ## What it does
 
 - **Multi-source ingestion** — accepts traces from Claude Code, Codex CLI, pi.dev, and more
