@@ -5,13 +5,13 @@ Analysis engine for AI coding session traces. Ingests JSONL logs from Claude Cod
 ## Demo
 
 <p align="center">
-  <b>Splash screen</b><br/>
-  <img src="docs/demo-splash.png" alt="Splash screen" width="80%" />
+  <b>Session browser</b><br/>
+  <img src="docs/demo-browser.png" alt="Session browser" width="80%" />
 </p>
 
 <p align="center">
-  <b>Session browser</b><br/>
-  <img src="docs/demo-browser.png" alt="Session browser" width="80%" />
+  <b>Splash screen</b><br/>
+  <img src="docs/demo-splash.png" alt="Splash screen" width="80%" />
 </p>
 
 <p align="center">
